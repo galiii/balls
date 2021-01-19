@@ -1,0 +1,146 @@
+<html>
+
+<head>
+    <title>My Game</title>
+
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-size: large;
+            text-align: center;
+        }
+
+        .ball1, .ball2, .ball3, .ball4 {
+            background-color: yellow;
+            color: black;
+            line-height: 100px;
+            width: 100px;
+            height: 100px;
+            margin: auto;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
+    </style>
+</head>
+
+
+<body>
+    <h1>The Ball</h1>
+
+    <div class="ball1" onclick="onBall1Click()" ></div>
+    <div class="ball2" onclick="onBall2Click()"></div>
+    <div class="ball3" onclick="onBall3Click()">ON</div> <!--start from on-->
+    <div class="ball4" onclick="onBall4Click()">1</div>
+  
+
+    <script>
+
+        var ball1Size       = 100;
+        var ball2Size       = 100;      //part of task#2 - Size of Ball2 
+        var ball2SizeStep   = 50;       //part of task#2 - increment/decrement of Ball2 size
+        var isBall3OnToggle = true;     //part of task#3 - reflects is Ball3 text is "ON"
+        var counter = 1;
+
+        function onBall1Click() {
+            var elBall1 = document.querySelector('.ball1');
+           
+            //#task3.2 if counter is 2 in ball num 1 - no react
+            if(isBall3OnToggle === false || counter===2){
+                console.log(`counter is now ${counter}`);
+                return;
+            }
+
+            ball1Size = ball1Size + 50;
+
+            if (ball1Size === 250) {
+                elBall1.style.backgroundColor = 'red';
+                
+            }
+
+            if (ball1Size > 400) {
+                ball1Size = 100;
+                /** task#1 **/
+                elBall1.style.backgroundColor = 'yellow'; //change back to color yellow
+            }
+
+            elBall1.innerText = ball1Size;
+            elBall1.style.width = ball1Size + 'px';
+            elBall1.style.height = ball1Size + 'px';
+        }
+
+        /* for task#2 just copy*/
+        function onBall2Click() {
+            var elBall1 = document.querySelector('.ball2');
+            
+            //task#3.2 if counter is 1 in bull num 2 - no react
+            if(isBall3OnToggle === false  || counter===1){
+                console.log(`counter is now ${counter}`);
+                return;
+            }
+            ball2Size = ball2Size + ball2SizeStep ; /* task#2.2*/
+         
+
+            /*in order that the ball will not vanish*/
+            if(ball2Size == 100){
+                ball2SizeStep =  Math.abs( ball2SizeStep ) ; //change from negative to possitive
+               
+            }
+
+            if (ball2Size === 250) {
+                elBall1.style.backgroundColor = 'red';
+                
+            }
+
+            if (ball2Size >= 400) {
+                /*task#2.3*/
+                ball2SizeStep =  - ball2SizeStep ; /*shrink back*/
+            }
+
+            elBall1.innerText = ball2Size;
+            elBall1.style.width = ball2Size + 'px';
+            elBall1.style.height = ball2Size + 'px';
+        }// end onBall2Click
+
+
+        /* task#3*/
+        function onBall3Click() {
+            var elBall1 = document.querySelector('.ball3');
+            console.log(`Before isBall3OnToggle ${isBall3OnToggle}`);
+            /* 
+                Every time we have click event we,
+                we cahnge the boolen var isBall3OnToggle (true or false) 
+            */
+            isBall3OnToggle = ! isBall3OnToggle; 
+            console.log(`After isBall3OnToggle ${isBall3OnToggle}`);
+
+            if(isBall3OnToggle === false){
+                elBall1.style.backgroundColor = 'grey';
+                elBall1.innerText = 'OFF';
+            }
+
+            else{ //is true
+                elBall1.style.backgroundColor = 'yellow'; 
+                elBall1.innerText = 'ON';
+            }     
+        }// end onBall3Click
+       
+
+        function onBall4Click(){
+            var elBall1 = document.querySelector('.ball4');
+            counter+=1;
+
+            /*reset to 1*/
+            if(counter > 3){
+                counter = 1;
+            }
+
+            elBall1.innerHTML = counter;
+
+        }
+
+    </script>
+</body>
+
+</html>
